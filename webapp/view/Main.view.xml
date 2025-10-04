@@ -16,6 +16,10 @@
                                 id="form01"
                                 fragmentName="com.logaligroup.invoices.fragment.Form01"
                                 type="XML"/>
+
+                <mvc:XMLView 
+                            viewName="com.logaligroup.invoices.view.InvoicesList"
+                            type="XML"/>
             
             </content>
 
