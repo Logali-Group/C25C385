@@ -9,7 +9,7 @@
                 headerText="{i18n>invoices}"
                 class="sapUiResponsiveMargin"
                 items="{
-                    path: 'invoices>/Invoices',
+                    path: 'northwind>/Invoices',
                     filters: {
                         path: 'ExtendedPrice',
                         operator: 'BT',
@@ -34,10 +34,12 @@
 
             <items>
                 <ObjectListItem 
-                            title="{invoices>Quantity} x {invoices>ProductName}"
+                            title="{northwind>Quantity} x {northwind>ProductName}"
+                            type="Navigation"
+                            press="onNavToDetail"
                             number="{
                                 parts: [
-                                    'invoices>ExtendedPrice',
+                                    'northwind>ExtendedPrice',
                                     'currency>/usd'
                                 ],
                                 type: 'sap.ui.model.type.Currency',
@@ -47,21 +49,21 @@
                             }"
                             numberUnit="{currency>/usd}"
                             numberState="{=
-                                ( ${invoices>ExtendedPrice} >= 0.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 50.00)? 'Error' : 
-                                ( ${invoices>ExtendedPrice} > 50.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 300.00)? 'Warning' :
-                                ( ${invoices>ExtendedPrice} > 300.00 &amp;&amp; ${invoices>ExtendedPrice} &lt;= 700.00)? 'Success' : 'Information'
+                                ( ${northwind>ExtendedPrice} >= 0.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 50.00)? 'Error' : 
+                                ( ${northwind>ExtendedPrice} > 50.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 300.00)? 'Warning' :
+                                ( ${northwind>ExtendedPrice} > 300.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 700.00)? 'Success' : 'Information'
                             }">
 
-                        <firstStatus>
+                        <!-- <firstStatus>
                             <ObjectStatus 
                                     core:require="{
                                         MyFormmatter: 'com/logaligroup/invoices/model/formatter'
                                     }"
                                     text="{
-                                        path:'invoices>Status',
+                                        path:'northwind>Status',
                                         formatter: 'MyFormmatter.statusText.bind($controller)'
                                     }"/>
-                        </firstStatus>
+                        </firstStatus> -->
 
                     </ObjectListItem>
             </items>

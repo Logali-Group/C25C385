@@ -61,15 +61,14 @@
           "bundleName": "com.logaligroup.invoices.i18n.i18n"
         }
       },
-      "invoices":{
-        "type":"sap.ui.model.json.JSONModel",
-        "uri":"model/Invoices.json"
+      "invoices": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/Invoices.json"
       },
       "northwind": {
         "dataSource": "northwind_srv",
-        "settings": {
-            
-        }
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
@@ -88,8 +87,7 @@
         "type": "View",
         "viewType": "XML",
         "path": "com.logaligroup.invoices.view",
-        "async": true,
-        "viewPath": "com.logaligroup.invoices.view"
+        "async": true
       },
       "routes": [
         {
@@ -98,12 +96,19 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "RouteDetails",
+          "pattern": "detail/{path}:?query:",
+          "target": "TargetDetail"
         }
       ],
       "targets": {
         "TargetMain": {
-          "id": "Main",
           "name": "Main"
+        },
+        "TargetDetail": {
+          "name": "Detail"
         }
       }
     },
