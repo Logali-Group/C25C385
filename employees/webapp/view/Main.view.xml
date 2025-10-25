@@ -83,6 +83,16 @@
             <Table  id="table"
                     items="{employees>/Employees}">
 
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Employees (45)"/>
+                        <ToolbarSpacer />
+                        <Button
+                                icon="sap-icon://download"
+                                press="onExportToExcel"/>
+                    </Toolbar>
+                </headerToolbar>
+
                 <columns>
 
                     <Column>
