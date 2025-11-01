@@ -7,6 +7,10 @@ import Filter from "sap/ui/model/Filter";
 import Table from "sap/m/Table";
 import ListBinding from "sap/ui/model/ListBinding";
 import FilterOperator from "sap/ui/model/FilterOperator";
+import Event from "sap/ui/base/Event";
+import ObjectListItem from "sap/m/ObjectListItem";
+import Context from "sap/ui/model/Context";
+import JSONModel from "sap/ui/model/json/JSONModel";
 // import * as XLSX from "xlsx";
 // import Binding from "sap/ui/model/Binding";
 // import Context from "sap/ui/model/Context";
@@ -65,6 +69,18 @@ export default class Main extends BaseController {
         input.setValue("");
         combobox.setSelectedKey("");
         this.onFilterSearchPress(event);
+    }
+
+    public onNavToDetails (event : Event) : void {
+        let item = event.getSource() as ObjectListItem;
+        let bindingContext = item.getBindingContext("employees") as Context;
+        let id = bindingContext.getProperty("EmployeeID");
+        const model = this.getModel("view") as JSONModel;
+        model.setProperty("/layout","TwoColumnsMidExpanded");
+        const router = this.getRouter();
+        router.navTo("RouteDetails",{
+            ID: parseInt(id) - 1            //index
+        });
     }
 
     // public onExportToExcel(): void {
