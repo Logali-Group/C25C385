@@ -28,7 +28,7 @@
       }
     },
     {
-      "name": "Start employees Local",
+      "name": "Start employees Mock",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/employees",
@@ -42,7 +42,7 @@
       ],
       "args": [
         "--config",
-        "./ui5-local.yaml",
+        "./ui5-mock.yaml",
         "--open",
         "test/flp.html#app-preview"
       ],

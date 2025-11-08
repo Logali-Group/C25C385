@@ -14,6 +14,26 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.19.3",
       "toolsId": "d2260eff-9c6d-40b1-818a-948508d6f6fd"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/v2/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YSAPUI5_SRV_01": {
+        "uri": "/sap/opu/odata/sap/YSAPUI5_SRV_01/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YSAPUI5_SRV_01/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -51,6 +71,22 @@
         "settings": {
           "bundleName": "com.logaligroup.employees.i18n.i18n"
         }
+      },
+      "types": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/Types.json"
+      },
+      "northwind": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "zinvoices": {
+        "dataSource": "YSAPUI5_SRV_01",
+        "preload": true,
+        "settings": {
+          
+        }
       }
     },
     "resources": {
@@ -82,7 +118,7 @@
         {
           "name": "RouteDetails",
           "pattern": "Employee({ID})",
-          "target":[
+          "target": [
             "TargetMaster",
             "TargetDetails"
           ]
@@ -90,16 +126,15 @@
         {
           "name": "RouteAux",
           "pattern": "Employee({ID})/to_Aux",
-          "target":[
+          "target": [
             "TargetMaster",
-            "TargetDetails",
-            "TargetAux"
+            "TargetDetails"
           ]
         }
       ],
       "targets": {
         "TargetContainer": {
-          "name":"Container"
+          "name": "Container"
         },
         "TargetMaster": {
           "parent": "TargetContainer",
@@ -112,12 +147,6 @@
           "controlId": "container-fcl",
           "controlAggregation": "midColumnPages",
           "name": "Details"
-        },
-        "TargetAux": {
-          "parent": "TargetContainer",
-          "controlId": "container-fcl",
-          "controlAggregation": "endColumnPages",
-          "name":"Aux"
         }
       }
     },

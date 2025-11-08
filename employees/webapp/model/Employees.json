@@ -11,7 +11,12 @@
         {
           "OrderID": "208",
           "Freight": "65",
-          "ShipAddress": "Calle Alcala"
+          "ShipAddress": "Calle Alcala",
+          "Contacts": [
+            {
+
+            }
+          ]
         },
         {
           "OrderID": "2096",
@@ -820,5 +825,8 @@
         }
       ]
     }
+  ],
+  "Invoices": [
+
   ]
 }
