@@ -85,7 +85,9 @@
         "dataSource": "YSAPUI5_SRV_01",
         "preload": true,
         "settings": {
-          
+          "defaultBindingMode":"TwoWay",
+          "useBatch": false,
+          "defaultUpdateMethod":"PUT"
         }
       }
     },
