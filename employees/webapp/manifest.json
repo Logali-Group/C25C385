@@ -126,11 +126,12 @@
           ]
         },
         {
-          "name": "RouteAux",
-          "pattern": "Employee({ID})/to_Aux",
-          "target": [
+          "name": "RouteOrderDetails",
+          "pattern": "Employee(ID={key})/Order(ID={key2})",
+          "target":[
             "TargetMaster",
-            "TargetDetails"
+            "TargetDetails",
+            "TargetOrderDetails"
           ]
         }
       ],
@@ -149,6 +150,12 @@
           "controlId": "container-fcl",
           "controlAggregation": "midColumnPages",
           "name": "Details"
+        },
+        "TargetOrderDetails": {
+          "parent": "TargetContainer",
+          "controlId": "container-fcl",
+          "controlAggregation": "endColumnPages",
+          "name":"OrderDetails"
         }
       }
     },

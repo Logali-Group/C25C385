@@ -11,6 +11,8 @@ import ODataListBinding from "sap/ui/model/odata/v2/ODataListBinding";
 import { DatePicker$ChangeEvent } from "sap/m/DatePicker";
 import { Input$LiveChangeEvent } from "sap/m/Input";
 import { Select$ChangeEvent } from "sap/m/Select";
+import ObjectListItem from "sap/m/ObjectListItem";
+import Event from "sap/ui/base/Event";
 
 /**
  * @namespace com.logaligroup.employees.controller
@@ -118,7 +120,7 @@ export default class Details extends BaseController {
         });
     }
 
-    public onSavePress (event : Button$PressEvent) : void {
+    public async onSavePress (event : Button$PressEvent) : Promise<void> {
 
         const button = event.getSource() as Button;
         const bindingContext = button.getBindingContext("form");
@@ -139,12 +141,17 @@ export default class Details extends BaseController {
                     CreationDate:           bindingContext?.getProperty("CreationDate"),
                     Type:                   bindingContext?.getProperty("Type"),
                     Reason:                 bindingContext?.getProperty("Reason")
-                }
+                },
+                filters: [
+                    new Filter("SapId","EQ",utils.getEmail()),
+                    new Filter("EmployeeId","EQ", employeeId)
+                ]
             }
 
-            utils.crud('create',new JSONModel(object));
+            let results = await utils.crud('create',new JSONModel(object));
+            this.showIncidents(results);
+
         } else {
-            console.log("Update");
             let incidenceId = bindingContext.getProperty("IncidenceId");
 
             const object = {
@@ -156,12 +163,38 @@ export default class Details extends BaseController {
                     TypeX:                  bindingContext?.getProperty("TypeX"),
                     Reason:                 bindingContext?.getProperty("Reason"),
                     ReasonX:                bindingContext?.getProperty("ReasonX")
-                }
+                },
+                filters: [
+                    new Filter("SapId","EQ",utils.getEmail()),
+                    new Filter("EmployeeId","EQ", employeeId)
+                ]
             }
 
-            utils.crud('update', new JSONModel(object));
+            const results = await utils.crud('update', new JSONModel(object));
+            this.showIncidents(results);
         }
         
+    }
+
+    public async onDeletePress (event: Button$PressEvent) : Promise<void> {
+        const button = event.getSource() as Button;
+        const bindingContext = button.getBindingContext("form");
+        const utils = new Utils(this);
+
+        const incidenceId = bindingContext?.getProperty("IncidenceId");
+        const sapid = utils.getEmail();
+        const employeeId = bindingContext?.getProperty("EmployeeId");
+
+        let object = {
+            path: `/IncidentsSet(IncidenceId='${incidenceId}',SapId='${sapid}',EmployeeId='${employeeId}')`,
+            filters: [
+                new Filter("SapId","EQ",utils.getEmail()),
+                new Filter("EmployeeId","EQ", employeeId)
+            ]
+        };
+
+        const results = await utils.crud('delete',new JSONModel(object));
+        this.showIncidents(results);
     }
 
     public updateIncidenceCreationDate (event : DatePicker$ChangeEvent) : void {
@@ -180,6 +213,21 @@ export default class Details extends BaseController {
         const context = event.getSource().getBindingContext("form") as Context;
         let object = context.getObject() as any;
         object.TypeX = true;
+    }
+
+    public onNavToOrderDetails (event: Event) : void {
+        const item = event.getSource() as ObjectListItem;
+        const bindingContext = item.getBindingContext("northwind") as Context;
+        const employeeId = bindingContext.getProperty("EmployeeID");
+        const orderId = bindingContext.getProperty("OrderID");
+        const view = this.getModel("view") as JSONModel;
+        view.setProperty("/layout","EndColumnFullScreen");
+
+        const router = this.getRouter();
+        router.navTo("RouteOrderDetails", {
+            key: employeeId,
+            key2: orderId
+        });
     }
 
 }
