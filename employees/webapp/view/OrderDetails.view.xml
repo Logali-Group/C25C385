@@ -2,7 +2,8 @@
             controllerName="com.logaligroup.employees.controller.OrderDetails"
             xmlns="sap.m"
             xmlns:uxap="sap.uxap"
-            xmlns:mvc="sap.ui.core.mvc">
+            xmlns:mvc="sap.ui.core.mvc"
+            xmlns:sg="com.logaligroup.employees.control">
 
             <uxap:ObjectPageLayout>
 
@@ -88,8 +89,11 @@
 
                                             <items>
 
-                                                <HBox width="400px"
-                                                        height="120px">
+                                                <HBox width="300px"
+                                                        height="150px">
+
+                                                    <sg:Signature
+                                                                    id="signature"/>
                                                 
                                                 </HBox>
 

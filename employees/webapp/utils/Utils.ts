@@ -33,21 +33,14 @@ export default class Utils {
         const filters = object?.getProperty("/filters");
         const resourceBundle = this.resourceBundle;
 
-        console.log("Before");
-        console.log({path,filters});
-
         if (path && typeof path === 'string') {
             path = path.split('(')[0];
         }
-
-        console.log("After");
-        console.log({path,filters});
 
         return new Promise((resolve, reject) => {
             model.read(path, {
                 filters: filters,
                 success: (data : ODataListBinding) =>{
-                    console.log("Obteniendo datos");
                     resolve(data);
                 },
                 error: () => {
